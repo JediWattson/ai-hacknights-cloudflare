@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weekly Comic</title>
+    <style>
+        /* Add your custom CSS styles here */
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+		h1 {
+			z-index: 1000;
+            position: relative;
+            font-size: 3em;
+        }
+
+		#triangle-container {
+			position: relative;
+		}
+		
+		.triangle {
+		  position: absolute;
+		  width: 0;
+		  height: 0;
+		  z-index: 1;
+		  border-left: 10px solid transparent;
+		  border-right: 10px solid transparent;
+		  border-bottom: 20px solid orange;
+		  animation: float 2s infinite alternate;
+		}
+
+		@keyframes float {
+		  0% {
+			top: 10px;
+		  }
+		  100% {
+			top: 30px;
+		  }
+		}
+    </style>
+</head>
+<body>
+	<div id="triangle-container"> 
+		<h1>This Week's Comic</h1>
+	</div>
+    <img src="ai-hackathon.jpg" alt="Weekly Comic">
+    <p>Based on the top stories of the week.</p>
+	<script>
+		function createTriangles(numTriangles) {
+			const title = document.getElementById('triangle-container');
+			const spacing = window.innerWidth / (numTriangles); // Adjust spacing as needed
+			for (let i = 0; i < numTriangles; i++) {
+				const triangleId = `triangle-${i}`
+				let triangle = document.getElementById(triangleId)
+				if (!triangle) {
+					triangle = document.createElement('div');
+					title.appendChild(triangle);
+					triangle.id = triangleId
+				}
+
+				let position = i * spacing + Math.random() * spacing * 0.5 - spacing * 0.25;
+				triangle.classList.add('triangle');
+				triangle.style.left = `${position}px`;
+			}
+		}
+
+		const t = parseInt(Math.random()*10, 10) + 4
+		window.addEventListener('resize', function() { createTriangles(t) })
+		createTriangles(t)
+	</script>
+</body>
+</html>
